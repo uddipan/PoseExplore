@@ -1,0 +1,17 @@
+from selenium import webdriver
+from bs4 import BeautifulSoup
+
+driver = webdriver.Chrome("/usr/bin/chromedriver")
+steps = []
+
+driver.get("https://www.wikihow.com/Windmill-Dunk")
+
+content = driver.page_source
+soup = BeautifulSoup(content)
+
+for a in soup.findAll('b', attrs={'class': 'whb'}):
+    steps.append(a.text)
+
+file = open("dunk.txt", "w")
+file.writelines(steps)
+file.close()
